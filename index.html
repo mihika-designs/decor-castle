@@ -1,1 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Decor Castle — By Padmawati Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso:   #1A0F07;
+    --dark:       #2C1A0C;
+    --mid:        #5C3D1E;
+    --copper:     #A0622A;
+    --gold:       #C9933C;
+    --sand:       #E8D5B0;
+    --cream:      #F5EDD8;
+    --offwhite:   #FAF6EE;
+    --muted:      #9C8B78;
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--offwhite);
+    color: var(--espresso);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 3.5rem;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(26, 15, 7, 0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--sand);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .nav-logo-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    color: var(--copper);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sand);
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.2s, color 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  .nav-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    background: var(--gold);
+    padding: 0.65rem 1.4rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: var(--sand); }
+
+  /* ── HERO ── */
+  #hero {
+    height: 100vh;
+    background: var(--espresso);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4rem 5rem 3.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 5.5vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--sand);
+    margin-bottom: 2rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 2.8rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    background: var(--gold);
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--sand); transform: translateY(-1px); }
+
+  .btn-ghost {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand);
+    text-decoration: none;
+    border-bottom: 1px solid var(--copper);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--espresso) 0%, transparent 30%);
+    z-index: 1;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(160, 98, 42, 0.04) 40px,
+        rgba(160, 98, 42, 0.04) 41px
+      );
+  }
+
+  .hero-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--copper);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 5;
+  }
+
+  .hero-scroll span {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: var(--copper);
+    animation: scrollpulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollpulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--dark);
+    padding: 1rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(160,98,42,0.2);
+    border-bottom: 1px solid rgba(160,98,42,0.2);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--copper);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .marquee-item::after {
+    content: '◆';
+    font-size: 0.4rem;
+    color: var(--gold);
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 7rem 3.5rem; }
+
+  .section-eyebrow {
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--copper);
+    display: inline-block;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--espresso);
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--copper);
+  }
+
+  /* ── ABOUT / STORY ── */
+  #story {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .story-text .section-title { margin-bottom: 2rem; }
+
+  .story-body {
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .story-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(160,98,42,0.2);
+  }
+
+  .stat-item {}
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .story-visual {
+    position: relative;
+  }
+
+  .story-img-main {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--copper);
+  }
+
+  .story-img-accent {
+    position: absolute;
+    bottom: -2.5rem;
+    right: -2.5rem;
+    width: 55%;
+    aspect-ratio: 1;
+    background: var(--espresso);
+    border: 4px solid var(--offwhite);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--copper);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* ── PRODUCTS ── */
+  #products {
+    background: var(--espresso);
+    padding-bottom: 8rem;
+  }
+
+  #products .section-eyebrow { color: var(--gold); }
+  #products .section-eyebrow::before { background: var(--gold); }
+  #products .section-title { color: var(--sand); margin-bottom: 4rem; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 0;
+    background: rgba(160,98,42,0.15);
+  }
+
+  .product-card {
+    background: var(--dark);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .product-card:hover { background: #3A2010; }
+  .product-card:hover::before { transform: scaleX(1); }
+
+  .product-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: rgba(160,98,42,0.2);
+    margin-bottom: 1.2rem;
+    line-height: 1;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--sand);
+    margin-bottom: 0.6rem;
+  }
+
+  .product-desc {
+    font-size: 0.78rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .product-tag {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,147,60,0.3);
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* ── BRANDS ── */
+  #brands {
+    background: var(--offwhite);
+    text-align: center;
+  }
+
+  #brands .section-eyebrow {
+    justify-content: center;
+  }
+
+  #brands .section-eyebrow::before { display: none; }
+
+  #brands .section-title { margin-bottom: 1rem; }
+
+  .brands-sub {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 4rem;
+  }
+
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(160,98,42,0.15);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .brand-cell {
+    background: var(--offwhite);
+    padding: 2.5rem 2rem;
+    transition: background 0.2s;
+  }
+
+  .brand-cell:hover { background: var(--cream); }
+
+  .brand-city {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 0.5rem;
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--espresso);
+  }
+
+  /* ── EXPERIENCE CENTER ── */
+  #experience {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 0;
+    padding: 0;
+    min-height: 80vh;
+  }
+
+  .exp-text {
+    padding: 7rem 4rem 7rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .exp-text .section-eyebrow { color: var(--gold); }
+  .exp-text .section-eyebrow::before { background: var(--gold); }
+  .exp-text .section-title { color: var(--sand); margin-bottom: 2rem; }
+
+  .exp-body {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    max-width: 40ch;
+  }
+
+  .floors-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(160,98,42,0.2);
+  }
+
+  .floor-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(160,98,42,0.12);
+  }
+
+  .floor-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--gold);
+    min-width: 1.5rem;
+  }
+
+  .floor-label {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--sand);
+  }
+
+  .floor-desc {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--muted);
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .exp-visual {
+    position: relative;
+    overflow: hidden;
+    background: var(--espresso);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .exp-visual-inner {
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(160,98,42,0.05) 60px,
+        rgba(160,98,42,0.05) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(160,98,42,0.05) 60px,
+        rgba(160,98,42,0.05) 61px
+      );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+  }
+
+  .exp-placeholder-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--copper);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  /* ── BROCHURES / DOWNLOADS ── */
+  #brochures {
+    background: var(--cream);
+  }
+
+  .brochures-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3.5rem;
+  }
+
+  .brochures-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .brochure-card {
+    background: var(--offwhite);
+    border: 1px solid rgba(160,98,42,0.15);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .brochure-card:hover {
+    border-color: var(--copper);
+    transform: translateY(-3px);
+  }
+
+  .brochure-icon {
+    width: 2.5rem;
+    height: 3rem;
+    background: var(--espresso);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .brochure-icon::after {
+    content: 'PDF';
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+
+  .brochure-icon::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 8px 8px 0;
+    border-color: transparent var(--offwhite) transparent transparent;
+  }
+
+  .brochure-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--espresso);
+    line-height: 1.3;
+  }
+
+  .brochure-brand {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--copper);
+  }
+
+  .brochure-dl {
+    margin-top: auto;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(160,98,42,0.12);
+    padding-top: 1rem;
+  }
+
+  .brochure-dl::before {
+    content: '↓';
+    color: var(--gold);
+  }
+
+  /* ── APPOINTMENT ── */
+  #appointment {
+    background: var(--espresso);
+    text-align: center;
+    padding: 8rem 3.5rem;
+  }
+
+  #appointment .section-eyebrow {
+    justify-content: center;
+    color: var(--gold);
+  }
+
+  #appointment .section-eyebrow::before { display: none; }
+  #appointment .section-title { color: var(--sand); margin-bottom: 1.5rem; }
+
+  .appt-desc {
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 50ch;
+    margin: 0 auto 3.5rem;
+    line-height: 1.8;
+  }
+
+  .appt-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 1px;
+    max-width: 860px;
+    margin: 0 auto;
+    background: rgba(160,98,42,0.2);
+  }
+
+  .appt-input {
+    background: var(--dark);
+    border: none;
+    padding: 1.1rem 1.4rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--sand);
+    outline: none;
+    width: 100%;
+  }
+
+  .appt-input::placeholder { color: var(--muted); }
+
+  .appt-btn {
+    background: var(--gold);
+    border: none;
+    padding: 1.1rem 2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .appt-btn:hover { background: var(--sand); }
+
+  /* ── CONTACT / FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 5rem 3.5rem 2.5rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid rgba(160,98,42,0.2);
+    margin-bottom: 2.5rem;
+  }
+
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--sand);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-brand-sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .footer-contact-item {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .footer-contact-item strong {
+    color: var(--copper);
+    font-weight: 400;
+  }
+
+  .footer-col-title {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-links a {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--sand); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: rgba(156,139,120,0.5);
+  }
+
+  .footer-insta {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--copper);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-insta:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+  .fade-up:nth-child(5) { transition-delay: 0.4s; }
+  .fade-up:nth-child(6) { transition-delay: 0.5s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 6rem 1.5rem 4rem; }
+    #story { grid-template-columns: 1fr; padding: 5rem 1.5rem; }
+    .story-img-accent { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .products-grid { grid-template-columns: 1fr 1fr; }
+    .brochures-grid { grid-template-columns: 1fr 1fr; }
+    .brands-grid { grid-template-columns: 1fr 1fr; }
+    #experience { grid-template-columns: 1fr; }
+    .exp-visual { min-height: 40vh; }
+    .appt-form { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <span class="nav-logo-main">The Decor Castle</span>
+    <span class="nav-logo-sub">By Padmawati Enterprises</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#story">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#experience">Experience Center</a></li>
+    <li><a href="#brochures">Brochures</a></li>
+  </ul>
+  <a href="#appointment" class="nav-cta">Book a Visit</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Indore · Madhya Pradesh · Est. 2002</p>
+    <h1 class="hero-title">
+      Where <em>surfaces</em><br>
+      meet <em>story.</em>
+    </h1>
+    <p class="hero-desc">
+      Madhya Pradesh's widest range of decorative interior materials — curated, displayed, and experienced like never before. Welcome to The Decor Castle.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">Explore the Experience Center</a>
+      <a href="#brochures" class="btn-ghost">View Brochures</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-img-placeholder">
+      [ ADD HERO IMAGE ]<br><br>Experience Center Exterior<br>or Premium Interior Shot
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item">Charcoal Louvres</div>
+    <div class="marquee-item">Mica</div>
+    <div class="marquee-item">Liner</div>
+    <div class="marquee-item">Veneer</div>
+    <div class="marquee-item">Plywood</div>
+    <div class="marquee-item">Acrylic</div>
+    <div class="marquee-item">PVC</div>
+    <div class="marquee-item">Hardware</div>
+    <div class="marquee-item">Adhesive</div>
+    <div class="marquee-item">Charcoal Louvres</div>
+    <div class="marquee-item">Mica</div>
+    <div class="marquee-item">Liner</div>
+    <div class="marquee-item">Veneer</div>
+    <div class="marquee-item">Plywood</div>
+    <div class="marquee-item">Acrylic</div>
+    <div class="marquee-item">PVC</div>
+    <div class="marquee-item">Hardware</div>
+    <div class="marquee-item">Adhesive</div>
+  </div>
+</div>
+
+<!-- ── STORY ── -->
+<section id="story">
+  <div class="story-text">
+    <p class="section-eyebrow">Our Story</p>
+    <h2 class="section-title">Two decades of trust.<br><em>One bold new vision.</em></h2>
+    <p class="story-body">
+      Padmawati Enterprises was born from a single loan, a small room, and an enormous belief in hard work. What began in Indore as a modest adhesive distribution business grew — through reinvention, dedication, and an ever-expanding dealer network — into the most comprehensive interior surfaces enterprise in Madhya Pradesh.
+    </p>
+    <p class="story-body">
+      Today, we carry the widest range of decorative sheets in the state, representing India's finest surface brands. And now, we are building an Experience Center — seven floors of curated material discovery — where every surface tells its story and every finish finds its home.
+    </p>
+    <div class="story-stats">
+      <div class="stat-item">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years of Legacy</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Product Categories</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Floor Experience Center</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">MP</div>
+        <div class="stat-label">State-Wide Dealer Network</div>
+      </div>
+    </div>
+  </div>
+  <div class="story-visual">
+    <div class="story-img-main">[ ADD SHOWROOM / TEAM IMAGE ]</div>
+    <div class="story-img-accent">[ ADD<br>PRODUCT<br>CLOSE-UP ]</div>
+  </div>
+</section>
+
+<!-- ── PRODUCTS ── -->
+<section id="products">
+  <p class="section-eyebrow">What We Carry</p>
+  <h2 class="section-title" style="color:var(--sand)">Nine categories.<br><em>Infinite possibilities.</em></h2>
+  <div class="products-grid">
+    <div class="product-card fade-up">
+      <div class="product-num">01</div>
+      <div class="product-name">Charcoal Louvres</div>
+      <div class="product-desc">Dramatic, textured paneling that transforms walls into statements. Deep, architectural, unforgettable.</div>
+      <span class="product-tag">Architectural Finish</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">02</div>
+      <div class="product-name">Mica</div>
+      <div class="product-desc">High-gloss, high-performance decorative sheets in a spectrum of finishes for every surface application.</div>
+      <span class="product-tag">Decorative Surface</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">03</div>
+      <div class="product-name">Liner</div>
+      <div class="product-desc">Precision surface materials for seamless applications — clean lines, lasting impressions.</div>
+      <span class="product-tag">Surface Material</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">04</div>
+      <div class="product-name">Veneer</div>
+      <div class="product-desc">The warmth and character of real wood, engineered for consistency and longevity.</div>
+      <span class="product-tag">Natural Wood Finish</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">05</div>
+      <div class="product-name">Plywood</div>
+      <div class="product-desc">The structural backbone of fine interiors. Strength, stability, and workability in every sheet.</div>
+      <span class="product-tag">Structural</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">06</div>
+      <div class="product-name">Acrylic</div>
+      <div class="product-desc">High-gloss, vibrant, and endlessly versatile. Acrylic sheets that make modular interiors shine.</div>
+      <span class="product-tag">High Gloss Finish</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">07</div>
+      <div class="product-name">PVC</div>
+      <div class="product-desc">Durable, moisture-resistant panels ideal for wet areas, ceilings, and high-traffic surfaces.</div>
+      <span class="product-tag">Functional Surface</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">08</div>
+      <div class="product-name">Hardware</div>
+      <div class="product-desc">Premium furniture hardware exclusively from Trend — hinges, channels, handles, and more.</div>
+      <span class="product-tag">Trend Exclusive</span>
+    </div>
+    <div class="product-card fade-up">
+      <div class="product-num">09</div>
+      <div class="product-name">Adhesive</div>
+      <div class="product-desc">Industrial-grade bonding solutions from Hindbond 7 Star — trusted by carpenters across MP.</div>
+      <span class="product-tag">Hindbond Exclusive</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── BRANDS ── -->
+<section id="brands">
+  <p class="section-eyebrow">Our Partners</p>
+  <h2 class="section-title">Representing <em>India's finest</em><br>surface brands.</h2>
+  <p class="brands-sub">We are authorised distributors for leading national manufacturers across India.</p>
+  <div class="brands-grid">
+    <div class="brand-cell fade-up">
+      <div class="brand-city">Delhi</div>
+      <div class="brand-name">Trend Laminates</div>
+    </div>
+    <div class="brand-cell fade-up">
+      <div class="brand-city">Mumbai</div>
+      <div class="brand-name">Glorio</div>
+    </div>
+    <div class="brand-cell fade-up">
+      <div class="brand-city">Mumbai</div>
+      <div class="brand-name">Zurich</div>
+    </div>
+    <div class="brand-cell fade-up">
+      <div class="brand-city">Ahmedabad</div>
+      <div class="brand-name">Hindbond 7 Star</div>
+    </div>
+    <div class="brand-cell fade-up">
+      <div class="brand-city">Ahmedabad</div>
+      <div class="brand-name">Daarvi</div>
+    </div>
+    <div class="brand-cell fade-up">
+      <div class="brand-city">Surat / Vapi</div>
+      <div class="brand-name">Shiv Shakti Laminates</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE CENTER ── -->
+<section id="experience">
+  <div class="exp-text">
+    <p class="section-eyebrow">Experience Center</p>
+    <h2 class="section-title">Seven floors.<br><em>One destination.</em></h2>
+    <p class="exp-body">
+      Our upcoming Experience Center in Indore is designed for those who want to see, touch, and truly understand a material before they commit. Appointment-only. Every detail considered.
+    </p>
+    <ul class="floors-list">
+      <li class="floor-item">
+        <span class="floor-num">↑</span>
+        <span class="floor-label">Top Floor</span>
+        <span class="floor-desc">Consultation Lounge</span>
+      </li>
+      <li class="floor-item">
+        <span class="floor-num">4</span>
+        <span class="floor-label">Experience — Part 2</span>
+        <span class="floor-desc">Veneer · Plywood · Acrylic · PVC · Hardware</span>
+      </li>
+      <li class="floor-item">
+        <span class="floor-num">3</span>
+        <span class="floor-label">Experience — Part 1</span>
+        <span class="floor-desc">Louvres · Mica · Liner · Brand Story</span>
+      </li>
+      <li class="floor-item">
+        <span class="floor-num">1–2</span>
+        <span class="floor-label">Operations</span>
+        <span class="floor-desc">Storage & Dispatch</span>
+      </li>
+      <li class="floor-item">
+        <span class="floor-num">G</span>
+        <span class="floor-label">Warehouse</span>
+        <span class="floor-desc">Receiving & Ground Stock</span>
+      </li>
+      <li class="floor-item">
+        <span class="floor-num">B</span>
+        <span class="floor-label">Basement</span>
+        <span class="floor-desc">Deep Storage · Lift Access</span>
+      </li>
+    </ul>
+  </div>
+  <div class="exp-visual">
+    <div class="exp-visual-inner">
+      <div class="exp-placeholder-text">[ ADD EXPERIENCE CENTER<br>RENDER / BUILDING PHOTO ]</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BROCHURES ── -->
+<section id="brochures">
+  <div class="brochures-header">
+    <div>
+      <p class="section-eyebrow">Downloads</p>
+      <h2 class="section-title">Product <em>brochures</em><br>& catalogues.</h2>
+    </div>
+  </div>
+  <div class="brochures-grid">
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Trend Laminates Catalogue</div>
+      <div class="brochure-brand">Trend · Delhi</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Glorio Surface Catalogue</div>
+      <div class="brochure-brand">Glorio · Mumbai</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Zurich Collection</div>
+      <div class="brochure-brand">Zurich · Mumbai</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Shiv Shakti Laminates</div>
+      <div class="brochure-brand">Shiv Shakti · Surat</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Hindbond 7 Star Adhesive</div>
+      <div class="brochure-brand">Hindbond · Ahmedabad</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Daarvi Collection</div>
+      <div class="brochure-brand">Daarvi · Ahmedabad</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Hardware Catalogue</div>
+      <div class="brochure-brand">Trend Hardware · Delhi</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+    <a href="#" class="brochure-card fade-up">
+      <div class="brochure-icon"></div>
+      <div class="brochure-name">Full Product Range</div>
+      <div class="brochure-brand">The Decor Castle · 2025</div>
+      <div class="brochure-dl">Download PDF</div>
+    </a>
+  </div>
+</section>
+
+<!-- ── APPOINTMENT ── -->
+<section id="appointment">
+  <p class="section-eyebrow">Visit Us</p>
+  <h2 class="section-title">Book your<br><em>experience.</em></h2>
+  <p class="appt-desc">
+    Our Experience Center operates by appointment only — ensuring that every visitor receives the full, unhurried attention their project deserves.
+  </p>
+  <div class="appt-form">
+    <input type="text" class="appt-input" placeholder="Your Name">
+    <input type="tel" class="appt-input" placeholder="Phone / WhatsApp">
+    <input type="date" class="appt-input">
+    <button class="appt-btn">Request Visit</button>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">The Decor Castle</div>
+      <div class="footer-brand-sub">By Padmawati Enterprises</div>
+      <p class="footer-tagline">"Association with Exclusiveness"</p>
+      <div class="footer-contact-item"><strong>Phone</strong> +91 94253 11546</div>
+      <div class="footer-contact-item"><strong>Email</strong> Padmawatienterprises2010@yahoo.com</div>
+      <div class="footer-contact-item"><strong>Address</strong> 14-H-1, Scheme No. 71, Sector A, Industrial Area, Dhar Road, Indore – 452002 (M.P.)</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#brands">Brands</a></li>
+        <li><a href="#experience">Experience Center</a></li>
+        <li><a href="#brochures">Brochures</a></li>
+        <li><a href="#appointment">Book a Visit</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Products</div>
+      <ul class="footer-links">
+        <li><a href="#products">Charcoal Louvres</a></li>
+        <li><a href="#products">Mica</a></li>
+        <li><a href="#products">Liner</a></li>
+        <li><a href="#products">Veneer</a></li>
+        <li><a href="#products">Plywood</a></li>
+        <li><a href="#products">Acrylic</a></li>
+        <li><a href="#products">PVC</a></li>
+        <li><a href="#products">Hardware</a></li>
+        <li><a href="#products">Adhesive</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Brand Partners</div>
+      <ul class="footer-links">
+        <li><a href="#brands">Trend Laminates</a></li>
+        <li><a href="#brands">Glorio</a></li>
+        <li><a href="#brands">Zurich</a></li>
+        <li><a href="#brands">Hindbond 7 Star</a></li>
+        <li><a href="#brands">Daarvi</a></li>
+        <li><a href="#brands">Shiv Shakti Laminates</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Padmawati Enterprises. All rights reserved.</span>
+    <a href="https://instagram.com/tdcbypadmawati" class="footer-insta" target="_blank">@tdcbypadmawati</a>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
